@@ -1,19 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\api\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['cors']], function () {
+    Route::controller(EmployeeController::class)->group(function () {
+        Route::post('/employee', 'add');
+        Route::delete('/employee', 'delete');
+        Route::put('/employee', 'update');
+        Route::get('/employee', 'search');
+    });
 });
